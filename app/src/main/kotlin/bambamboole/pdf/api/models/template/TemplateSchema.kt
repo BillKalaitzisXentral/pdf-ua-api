@@ -85,7 +85,7 @@ object TemplateSchema {
                     customFields = listOf("width", "height"),
                     customUnits = listOf("mm"),
                 ),
-                locales = "BCP 47 / Java locale style string, e.g. de_DE or en_US",
+                locales = "ISO 639-1 language code and ISO 3166-1 alpha-2 country code, separated by an underscore e.g. de_DE or en_US",
                 margins = listOf("top", "right", "bottom", "left"),
                 pageNumbers = PageNumbersSchema(
                     fields = listOf("enabled", "position"),
