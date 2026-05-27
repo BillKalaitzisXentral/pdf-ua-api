@@ -49,3 +49,6 @@ bin/
 **/fixtures/**/page-*-diff.png
 **/image-fixtures/**/generated.png
 **/image-fixtures/**/diff.png
+
+#AI
+docs/superpowers
