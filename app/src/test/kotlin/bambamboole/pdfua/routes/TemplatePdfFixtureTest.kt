@@ -181,6 +181,19 @@ class TemplatePdfFixtureTest {
     }
 
     @Test
+    fun footerWithLeftPageNumbers() = testApplication {
+        application { module() }
+        assertTemplatePdfFixture(
+            "footer-with-left-page-numbers",
+            embeddedFont = "Inter",
+            pageTextAssertions = mapOf(
+                1 to listOf("Acme Industries GmbH"),
+                2 to listOf("Acme Industries GmbH"),
+            ),
+        )
+    }
+
+    @Test
     fun invoice() = testApplication {
         application { module() }
         assertTemplatePdfFixture(
@@ -206,6 +219,19 @@ class TemplatePdfFixtureTest {
     }
 
     @Test
+    fun footerWithCenterPageNumbers() = testApplication {
+        application { module() }
+        assertTemplatePdfFixture(
+            "footer-with-center-page-numbers",
+            embeddedFont = "Inter",
+            pageTextAssertions = mapOf(
+                1 to listOf("Acme Industries GmbH"),
+                2 to listOf("Acme Industries GmbH"),
+            ),
+        )
+    }
+
+    @Test
     fun dunningNotice() = testApplication {
         application { module() }
         assertTemplatePdfFixture(
@@ -224,6 +250,19 @@ class TemplatePdfFixtureTest {
                 listOf("Creditor", "Musterstraße 1", "VAT ID"),
                 listOf("Debtor", "Debtor reference"),
                 listOf("Amount due", "Bank", "IBAN", "BIC", "Payment reference"),
+            ),
+        )
+    }
+
+    @Test
+    fun footerWithRightPageNumbers() = testApplication {
+        application { module() }
+        assertTemplatePdfFixture(
+            "footer-with-right-page-numbers",
+            embeddedFont = "Inter",
+            pageTextAssertions = mapOf(
+                1 to listOf("Acme Industries GmbH"),
+                2 to listOf("Acme Industries GmbH"),
             ),
         )
     }
