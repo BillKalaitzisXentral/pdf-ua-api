@@ -1,20 +1,20 @@
 package bambamboole.pdfua
 
 import bambamboole.pdfua.config.AppConfig
-import bambamboole.pdfua.routes.convertRoutes
-import bambamboole.pdfua.routes.renderRoutes
-import bambamboole.pdfua.routes.healthRoutes
-import bambamboole.pdfua.routes.identifyRoutes
-import bambamboole.pdfua.routes.indexRoutes
-import bambamboole.pdfua.routes.convertAndValidateRoutes
-import bambamboole.pdfua.routes.renderImageRoutes
-import bambamboole.pdfua.routes.templateBuilderWebRoutes
-import bambamboole.pdfua.routes.templateSchemaRoutes
-import bambamboole.pdfua.routes.validationRoutes
+import bambamboole.pdfua.http.controller.convertAndValidateRoutes
+import bambamboole.pdfua.http.controller.convertRoutes
+import bambamboole.pdfua.http.controller.healthRoutes
+import bambamboole.pdfua.http.controller.identifyRoutes
+import bambamboole.pdfua.http.controller.indexRoutes
+import bambamboole.pdfua.http.controller.renderImageRoutes
+import bambamboole.pdfua.http.controller.renderRoutes
+import bambamboole.pdfua.http.controller.templateBuilderWebRoutes
+import bambamboole.pdfua.http.controller.templateSchemaRoutes
+import bambamboole.pdfua.http.controller.validationRoutes
 import bambamboole.pdfua.services.AssetResolver
-import bambamboole.pdfua.services.ImageRenderService
-import bambamboole.pdfua.services.PdfService
-import bambamboole.pdfua.services.PdfValidationService
+import bambamboole.pdfua.image.ImageRenderer
+import bambamboole.pdfua.pdf.PdfRenderer
+import bambamboole.pdfua.pdf.PdfValidator
 import com.github.mustachejava.DefaultMustacheFactory
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -48,9 +48,9 @@ fun Application.module() {
     LoggerFactory.getLogger("bambamboole.pdfua.Application")
         .info("PDF API version {} started", version)
 
-    PdfService.warmup()
-    PdfValidationService.warmup()
-    ImageRenderService.warmup()
+    PdfRenderer.warmup()
+    PdfValidator.warmup()
+    ImageRenderer.warmup()
 
     val httpClient = AssetResolver.createHttpClient(config.assetTimeoutMs)
     val assetResolver = AssetResolver(
