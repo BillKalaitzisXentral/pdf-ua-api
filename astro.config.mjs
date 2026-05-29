@@ -3,8 +3,10 @@ import starlight from "@astrojs/starlight";
 import react from "@astrojs/react";
 import starlightOpenAPI, {openAPISidebarGroups} from "starlight-openapi";
 
-const base = process.env.BASE_PATH ?? "/";
-const site = process.env.SITE_URL ?? "https://bambamboole.github.io";
+// Served at the root of the custom domain, so the base is "/" unless an explicit
+// BASE_PATH is provided. `||` guards against an empty string from CI's configure-pages.
+const base = process.env.BASE_PATH || "/";
+const site = process.env.SITE_URL || "https://pdf-ua-api.bambamboole.com";
 
 export default defineConfig({
     site,
@@ -18,7 +20,7 @@ export default defineConfig({
             ],
             plugins: [
                 starlightOpenAPI([
-                    {base: "api", label: "API Reference", schema: "./docs/openapi/openapi.yaml"},
+                    {base: "api", label: "API Reference", schema: "./docs/openapi/openapi.json"},
                 ]),
             ],
             sidebar: [
@@ -31,6 +33,7 @@ export default defineConfig({
                 },
                 {label: "Authentication", link: "/authentication/"},
                 {label: "Rate Limiting", link: "/rate-limiting/"},
+                {label: "S3 PDF Upload", link: "/s3-upload/"},
                 {
                     label: "HTML",
                     items: [
