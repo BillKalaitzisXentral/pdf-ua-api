@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Annual Accessibility Operations Report</title>
+    <meta name="subject" content="Long mixed-content benchmark report"/>
+    <meta name="author" content="PDF UA API Benchmark"/>
+    <meta name="description" content="A long report with narrative text, figures, callouts, and a few tables"/>
+    <style>
+        body {
+            font-family: 'Liberation Sans', Arial, sans-serif;
+            margin: 40px;
+            color: #222;
+            line-height: 1.45;
+        }
+        h1 { color: #23384d; font-size: 30px; margin-bottom: 8px; }
+        h2 { color: #34495e; margin-top: 30px; }
+        h3 { color: #3d5872; margin-top: 20px; }
+        p { margin: 8px 0 12px; }
+        .lead { font-size: 15px; color: #4a4f55; }
+        .summary {
+            border-left: 5px solid #2f80ed;
+            background: #eef5ff;
+            padding: 12px 16px;
+            margin: 18px 0;
+        }
+        .grid {
+            display: table;
+            width: 100%;
+            border-spacing: 12px;
+            margin: 18px -12px;
+        }
+        .card {
+            display: table-cell;
+            width: 33.33%;
+            border: 1px solid #c9d3dc;
+            background: #f8fafc;
+            padding: 12px;
+        }
+        .card strong {
+            display: block;
+            color: #1f3144;
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+        figure {
+            margin: 18px 0;
+            padding: 12px;
+            border: 1px solid #d6dde5;
+            background: #fff;
+        }
+        figure img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        figcaption {
+            color: #5b6470;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+        table.data {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+        table.data th {
+            background: #34495e;
+            color: #fff;
+            padding: 7px;
+            border: 1px solid #2c3e50;
+            text-align: left;
+        }
+        table.data td {
+            padding: 7px;
+            border: 1px solid #c9cfd6;
+            vertical-align: top;
+        }
+        .metric-icon {
+            width: 28px;
+            height: 28px;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+        .note {
+            background: #fff8e6;
+            border: 1px solid #efd38c;
+            padding: 10px 12px;
+            margin: 16px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Annual Accessibility Operations Report</h1>
+    <p class="lead">
+        This benchmark document represents a long business report rather than a
+        synthetic table dump. It combines paragraphs, figures, compact KPI
+        summaries, and a limited number of tables so renderers exercise text
+        shaping, pagination, image placement, and tagged structure generation.
+    </p>
+
+    <div class="summary">
+        <strong>Executive summary.</strong>
+        The reporting period showed steady progress in template coverage,
+        validation quality, and customer-facing delivery. The remaining risks
+        are concentrated around source content consistency, late asset changes,
+        and long tables that require careful semantic markup.
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <strong>94%</strong>
+            Documents passed automated validation before manual review.
+        </div>
+        <div class="card">
+            <strong>38</strong>
+            Template variants were actively used by production workloads.
+        </div>
+        <div class="card">
+            <strong>11 ms</strong>
+            Median template preparation time before PDF rendering.
+        </div>
+    </div>
+
+    <h2>1. Program Context</h2>
+    <p>
+        The accessibility program serves teams that need reliable PDF output
+        from HTML and JSON template sources. Most documents are generated from
+        ordinary application data: invoices, notices, reports, certificates, and
+        internal summaries. Those documents contain a mixture of prose, short
+        tables, labels, graphics, and repeated branding elements.
+    </p>
+    <p>
+        For benchmark purposes, this report intentionally avoids unusually large
+        single tables. Long tables are important, but they can dominate tagged
+        PDF size because every row, cell, and text fragment receives semantic
+        structure. A representative comparison should also measure narrative
+        content and embedded visual assets.
+    </p>
+    <p>
+        The input remains fully self-contained. Images are SVG data URLs, fonts
+        are resolved by the benchmark containers, and the layout uses CSS that
+        all compared engines can process without network access.
+    </p>
+
+    <figure>
+        <img alt="Quarterly validation trend chart" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20640%20220'%3E%3Crect%20width='640'%20height='220'%20fill='%23f7fafc'/%3E%3Cline%20x1='60'%20y1='180'%20x2='600'%20y2='180'%20stroke='%23899aaa'/%3E%3Cline%20x1='60'%20y1='40'%20x2='60'%20y2='180'%20stroke='%23899aaa'/%3E%3Cpolyline%20points='70,150%20180,132%20290,96%20400,82%20510,67%20590,54'%20fill='none'%20stroke='%232f80ed'%20stroke-width='8'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3Ccircle%20cx='70'%20cy='150'%20r='8'%20fill='%232f80ed'/%3E%3Ccircle%20cx='180'%20cy='132'%20r='8'%20fill='%232f80ed'/%3E%3Ccircle%20cx='290'%20cy='96'%20r='8'%20fill='%232f80ed'/%3E%3Ccircle%20cx='400'%20cy='82'%20r='8'%20fill='%232f80ed'/%3E%3Ccircle%20cx='510'%20cy='67'%20r='8'%20fill='%232f80ed'/%3E%3Ccircle%20cx='590'%20cy='54'%20r='8'%20fill='%232f80ed'/%3E%3Ctext%20x='60'%20y='26'%20font-family='Liberation%20Sans'%20font-size='18'%20fill='%2323384d'%3EValidation%20pass%20rate%20trend%3C/text%3E%3Ctext%20x='70'%20y='204'%20font-family='Liberation%20Sans'%20font-size='13'%20fill='%235b6470'%3EQ1%3C/text%3E%3Ctext%20x='585'%20y='204'%20font-family='Liberation%20Sans'%20font-size='13'%20fill='%235b6470'%3EQ4%3C/text%3E%3C/svg%3E">
+        <figcaption>Figure 1: Validation pass rates improved throughout the year as templates stabilized.</figcaption>
+    </figure>
+
+    <h2>2. Delivery Overview</h2>
+    <p>
+        Delivery volume increased across every quarter. The most common
+        documents were invoices and notices, but report-style content grew as
+        operations teams moved recurring manual exports into automated PDF
+        workflows. This introduced more headings, body copy, summary callouts,
+        and small visual indicators.
+    </p>
+    <p>
+        Operationally, teams preferred predictable page geometry over highly
+        decorative layouts. Most templates use a strict A4 format, narrow color
+        palettes, stable margins, and small typographic systems. Those choices
+        improve validation consistency and reduce visual drift between engines.
+    </p>
+
+    <table class="data">
+        <thead>
+            <tr>
+                <th>Area</th>
+                <th>Volume</th>
+                <th>Change</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><img class="metric-icon" alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20x='4'%20y='4'%20width='24'%20height='24'%20rx='5'%20fill='%232f80ed'/%3E%3Cpath%20d='M10%2017l4%204%208-10'%20fill='none'%20stroke='white'%20stroke-width='3'/%3E%3C/svg%3E">Invoices</td>
+                <td>1.8M</td>
+                <td>+18%</td>
+                <td>Stable structure, high reuse, and frequent metadata enrichment.</td>
+            </tr>
+            <tr>
+                <td><img class="metric-icon" alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20x='4'%20y='4'%20width='24'%20height='24'%20rx='5'%20fill='%2327ae60'/%3E%3Ccircle%20cx='16'%20cy='16'%20r='7'%20fill='white'/%3E%3C/svg%3E">Reports</td>
+                <td>420K</td>
+                <td>+31%</td>
+                <td>Mixed paragraphs, charts, and summary blocks became more common.</td>
+            </tr>
+            <tr>
+                <td><img class="metric-icon" alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20x='4'%20y='4'%20width='24'%20height='24'%20rx='5'%20fill='%23f2994a'/%3E%3Cpath%20d='M16%208l8%2016H8z'%20fill='white'/%3E%3C/svg%3E">Notices</td>
+                <td>690K</td>
+                <td>+9%</td>
+                <td>Short prose-heavy documents with occasional tables and attachments.</td>
+            </tr>
+            <tr>
+                <td><img class="metric-icon" alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20x='4'%20y='4'%20width='24'%20height='24'%20rx='5'%20fill='%239b51e0'/%3E%3Cpath%20d='M10%2010h12v4H10zm0%208h12v4H10z'%20fill='white'/%3E%3C/svg%3E">Certificates</td>
+                <td>180K</td>
+                <td>+14%</td>
+                <td>Image placement and metadata completeness were the main concerns.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>3. Template Quality</h2>
+    <p>
+        Template quality improved because teams started using shared primitives
+        instead of hand-assembling every document. Text blocks, key-value
+        regions, figure sections, and compact tables made the output easier to
+        reason about and easier to validate. The remaining defects usually came
+        from source data with missing labels or unsupported image formats.
+    </p>
+    <p>
+        The quality team also reduced late-stage fixes by validating templates
+        before they reached production data. That shifted review from individual
+        rendered PDFs to reusable template components. The result was fewer
+        document-specific exceptions and a clearer path for product teams.
+    </p>
+    <div class="note">
+        Several product teams reported that concise validation feedback mattered
+        more than raw rendering speed during template onboarding. Once templates
+        were stable, rendering throughput became the primary operational concern.
+    </div>
+
+    <h2>4. Accessibility Observations</h2>
+    <p>
+        Accessible output contains more than visual drawing commands. It needs
+        language metadata, logical reading order, structure trees, alternative
+        text for meaningful images, and tagged content that assistive technology
+        can traverse. These requirements add objects to the resulting PDF, and
+        the added structure scales with the number of semantic elements.
+    </p>
+    <p>
+        This is why a benchmark corpus must balance content types. A document
+        made almost entirely of tables measures table-tagging overhead more than
+        it measures ordinary report rendering. This large example keeps table
+        coverage but spends most pages on prose, figures, and mixed sections.
+    </p>
+
+    <figure>
+        <img alt="Stacked content mix diagram showing paragraphs as the largest share" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20640%20220'%3E%3Crect%20width='640'%20height='220'%20fill='%23ffffff'/%3E%3Crect%20x='70'%20y='55'%20width='360'%20height='34'%20fill='%232f80ed'/%3E%3Crect%20x='70'%20y='98'%20width='210'%20height='34'%20fill='%2327ae60'/%3E%3Crect%20x='70'%20y='141'%20width='145'%20height='34'%20fill='%23f2994a'/%3E%3Ctext%20x='70'%20y='30'%20font-family='Liberation%20Sans'%20font-size='18'%20fill='%2323384d'%3ERepresentative%20content%20mix%3C/text%3E%3Ctext%20x='445'%20y='78'%20font-family='Liberation%20Sans'%20font-size='14'%20fill='%23222'%3EParagraphs%20and%20headings%3C/text%3E%3Ctext%20x='295'%20y='121'%20font-family='Liberation%20Sans'%20font-size='14'%20fill='%23222'%3EFigures%20and%20callouts%3C/text%3E%3Ctext%20x='230'%20y='164'%20font-family='Liberation%20Sans'%20font-size='14'%20fill='%23222'%3ETables%3C/text%3E%3C/svg%3E">
+        <figcaption>Figure 2: The large corpus now represents a broader mix of report content.</figcaption>
+    </figure>
+
+    <h2>5. Operational Findings</h2>
+    <p>
+        The strongest operational improvement came from reducing template
+        variance. Teams that relied on a small set of documented components
+        produced fewer invalid documents and needed fewer special cases in their
+        data pipelines. This also made regression checks easier because a small
+        number of fixtures covered a larger share of real output.
+    </p>
+    <p>
+        Customer-specific branding remained manageable when colors, logos, and
+        spacing were constrained by the shared template model. Problems appeared
+        when teams embedded large raster assets without size limits or replaced
+        simple text with images. Those choices increased file size and reduced
+        accessibility value.
+    </p>
+    <p>
+        The report workflow now recommends text-first layout, meaningful image
+        descriptions, explicit table headers, and stable document metadata.
+        Those recommendations align with both accessibility requirements and
+        long-term maintainability of generated PDFs.
+    </p>
+
+    <h2>6. Risk Register</h2>
+    <table class="data">
+        <thead>
+            <tr>
+                <th>Risk</th>
+                <th>Likelihood</th>
+                <th>Impact</th>
+                <th>Mitigation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Missing image alternatives</td>
+                <td>Medium</td>
+                <td>High</td>
+                <td>Validate image blocks before rendering and require meaningful descriptions.</td>
+            </tr>
+            <tr>
+                <td>Unexpected long text</td>
+                <td>High</td>
+                <td>Medium</td>
+                <td>Use wrapping-friendly layouts and avoid fixed-height content boxes.</td>
+            </tr>
+            <tr>
+                <td>Unbounded asset size</td>
+                <td>Medium</td>
+                <td>Medium</td>
+                <td>Apply resolver limits and downscale oversized images before conversion.</td>
+            </tr>
+            <tr>
+                <td>Table overuse</td>
+                <td>Medium</td>
+                <td>Medium</td>
+                <td>Prefer prose, key-value groups, and summary sections unless data is tabular.</td>
+            </tr>
+            <tr>
+                <td>Metadata drift</td>
+                <td>Low</td>
+                <td>Medium</td>
+                <td>Centralize title, subject, author, language, and producer defaults.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>7. Recommendations</h2>
+    <p>
+        Continue investing in reusable template primitives and fixture-based
+        validation. A component model gives teams enough flexibility for product
+        documents while preserving predictable output semantics. It also makes
+        benchmark results easier to interpret because each fixture maps to a
+        realistic class of documents.
+    </p>
+    <p>
+        Use tables only for data that benefits from row and column navigation.
+        When content is explanatory, a paragraph or key-value layout is usually
+        more appropriate and produces simpler tagged output. When tables are
+        necessary, keep headers explicit and avoid nesting large visual objects
+        in every cell.
+    </p>
+    <p>
+        Keep file-size comparisons honest by separating archival conformance
+        costs from accessibility costs. The benchmark can disable the color
+        profile to compare PDF/UA output, while production defaults should
+        continue producing archival PDF/A-3a plus PDF/UA when required.
+    </p>
+
+    <h2>8. Closing Notes</h2>
+    <p>
+        This document is intentionally long enough to span several pages, but it
+        is no longer dominated by hundreds of table cells. The benchmark should
+        now better reflect common generated PDFs: structured text, a few figures,
+        operational tables, and enough repeated content to exercise pagination.
+    </p>
+    <p>
+        Future benchmark additions can introduce a separate table-stress fixture
+        if we want to measure that scenario directly. Keeping it separate would
+        make the tradeoff clear instead of hiding it inside a generic large
+        document result.
+    </p>
+</body>
+</html>

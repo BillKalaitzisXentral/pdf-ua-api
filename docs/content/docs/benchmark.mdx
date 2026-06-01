@@ -1,0 +1,101 @@
+---
+title: Benchmark
+description: pdf-ua-api vs WeasyPrint vs Gotenberg on speed, PDF/UA compliance, and file size.
+---
+
+import data from "../../../benchmark/results/latest.json";
+
+export const docs = [...new Set(data.results.map((r) => r.doc))];
+export const fmt = (n) => (n == null ? "—" : Math.round(n).toLocaleString());
+export const ms = (n) => (n == null ? "—" : `${n} ms`);
+export const kb = (b) => (b == null ? "—" : `${(b / 1024).toFixed(1)} KB`);
+export const engineNames = {
+  "pdf-ua-api": "pdf-ua-api",
+  weasyprint: "WeasyPrint",
+  "gotenberg-chromium": "Gotenberg Chromium",
+  "gotenberg-libreoffice": "Gotenberg LibreOffice",
+};
+
+This benchmark compares HTML-to-PDF conversion over HTTP. Each engine receives
+the same HTML corpus and the same load profile:
+{data.meta.concurrency} concurrent clients for {data.meta.duration}, after
+{data.meta.warmupRequests} warmup requests.
+
+The current run was measured on {data.meta.date} on a MacBook Pro with an M1 Max.
+It uses WeasyPrint {data.meta.weasyprintVersion} in its `pdf/ua-1` variant and
+Gotenberg {data.meta.gotenbergVersion} through both its Chromium and LibreOffice
+converters. Treat the numbers as a repeatable local snapshot, not a universal
+ranking.
+
+For this benchmark, pdf-ua-api is called with `embedColorProfile` set to
+**{String(data.meta.pdfUaEmbedColorProfile)}**. That keeps PDF/UA tagging enabled
+but omits the PDF/A output intent, which makes the size comparison easier to
+read. The API default remains `true`.
+
+{docs.map((doc) => (
+  <div key={doc}>
+    <h3>{doc} document</h3>
+    <table>
+      <thead>
+        <tr><th>Engine</th><th>Req/s</th><th>p50</th><th>p99</th><th>PDF/UA-1</th><th>Size</th></tr>
+      </thead>
+      <tbody>
+        {data.results.filter((r) => r.doc === doc).map((r) => (
+          <tr key={r.engine}>
+            <td>{engineNames[r.engine] ?? r.engine}</td>
+            <td>{fmt(r.reqPerSec)}</td>
+            <td>{ms(r.p50Ms)}</td>
+            <td>{ms(r.p99Ms)}</td>
+            <td>{r.pdfUa ? "Pass" : "Fail"}</td>
+            <td>{kb(r.sizeBytes)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+))}
+
+## What the numbers say
+
+- **Throughput.** pdf-ua-api is the fastest engine in this run for the small,
+  medium, and large documents. Gotenberg Chromium outpaces WeasyPrint on the
+  large mixed fixture. Gotenberg LibreOffice is slower for this HTML corpus.
+- **Accessibility.** pdf-ua-api passes PDF/UA-1 for every fixture in the corpus.
+  WeasyPrint passes on the simplest document and fails validation on the two
+  more structured fixtures. Gotenberg is measured as a rendering baseline here;
+  these routes are not producing PDF/UA output.
+- **File size.** The size column is measured with pdf-ua-api's color profile
+  disabled. That removes the PDF/A output intent from this comparison while
+  keeping tags enabled. With the normal API default, pdf-ua-api files are larger
+  because they contain the ICC profile, PDF/A output intent, and accessibility
+  tag tree in one PDF.
+
+## Methodology
+
+All engines run as HTTP services in Docker. pdf-ua-api and WeasyPrint receive
+JSON requests. Gotenberg Chromium receives the same HTML as a multipart
+`index.html` upload with `preferCssPageSize=true` and `printBackground=true`.
+Gotenberg LibreOffice receives the same HTML as a multipart `document.html`
+upload through the LibreOffice conversion route. pdf-ua-api's rate limiter is
+disabled for the run so the load test measures renderer throughput, not request
+throttling.
+
+The corpus has three document shapes: a small text document, a medium invoice,
+and a larger mixed report with paragraphs, figures, callouts, and a limited
+number of tables. The large fixture is not a table stress test.
+
+The containers ship Liberation Sans, so font choice is not the main size
+variable. Throughput and latency come from
+[`oha`](https://github.com/hatoo/oha). Every output PDF is validated by
+pdf-ua-api's veraPDF `/validate` endpoint. File size is the output PDF byte
+length.
+
+## Run it yourself
+
+```bash
+cd benchmark
+make benchmark
+```
+
+The full harness — corpus, services, and runner — lives in
+[`benchmark/`](https://github.com/bambamboole/pdf-ua-api/tree/main/benchmark).
