@@ -438,5 +438,36 @@ class BlockDeserializationTest {
         }
     }
 
+    @Test
+    fun decodesSwissQrBarcodeBlock() {
+        val input =
+            """
+            {"type":"barcode","symbology":"swiss-qr","content":{"type":"swiss",
+             "creditorIban":"CH4431999123000889012",
+             "creditor":{"name":"ACME","postalCode":"2501","town":"Biel","country":"CH"},
+             "referenceType":"NON"}}
+            """.trimIndent()
+        val block = json.decodeFromString(Block.serializer(), input)
+        val barcode = assertIs<BarcodeBlock>(block)
+        assertEquals(Symbology.SWISS_QR, barcode.symbology)
+        val swiss = assertIs<SwissQrContent>(barcode.content)
+        assertEquals("CH4431999123000889012", swiss.creditorIban)
+    }
+
+    @Test
+    fun decodesCodeBlockWithStructuredContent() {
+        val input =
+            """
+            {"type":"barcode","id":"pay","symbology":"qr","height":"24mm",
+             "content":{"type":"epc","name":"ACME GmbH","iban":"DE89370400440532013000","amount":"12.50"}}
+            """.trimIndent()
+        val block = json.decodeFromString(Block.serializer(), input)
+        val code = assertIs<BarcodeBlock>(block)
+        assertEquals("pay", code.id)
+        assertEquals(Symbology.QR, code.symbology)
+        val epc = assertIs<EpcContent>(code.content)
+        assertEquals("ACME GmbH", epc.name)
+    }
+
     private fun row(vararg cells: Pair<String, String>): JsonObject = buildJsonObject { cells.forEach { (key, value) -> put(key, value) } }
 }

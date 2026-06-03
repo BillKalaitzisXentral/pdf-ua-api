@@ -327,4 +327,18 @@ class TemplatePdfFixtureTest {
                     ),
             )
         }
+
+    @Test
+    fun barcodeLabel() =
+        testApplication {
+            application { module() }
+            assertTemplatePdfFixture("barcode-label", embeddedFont = "Inter")
+        }
+
+    @Test
+    fun swissQrBill() =
+        testApplication {
+            application { module() }
+            assertTemplatePdfFixture("swiss-qr-bill", embeddedFont = "Inter")
+        }
 }

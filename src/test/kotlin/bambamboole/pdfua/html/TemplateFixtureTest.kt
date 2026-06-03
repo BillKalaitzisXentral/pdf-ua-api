@@ -84,4 +84,10 @@ class TemplateFixtureTest {
 
     @Test
     fun quote() = assertTemplateFixture("quote")
+
+    @Test
+    fun barcodeLabel() = assertTemplateFixture("barcode-label")
+
+    @Test
+    fun swissQrBill() = assertTemplateFixture("swiss-qr-bill")
 }
